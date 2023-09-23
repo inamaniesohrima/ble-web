@@ -1,5 +1,6 @@
 import "dart:async";
 
+import "package:bluetooth_web/pages/model_view_page.dart";
 import "package:flutter/material.dart";
 import "package:flutter_web_bluetooth/flutter_web_bluetooth.dart";
 import "business/bluetooth_business.dart";
@@ -44,16 +45,29 @@ class _MyAppState extends State<MyApp> {
             debugShowCheckedModeBanner: false,
             home: Scaffold(
               appBar: AppBar(
-                  title: const SelectableText("Bluetooth web example app"),
-                  actions: [
-                    Builder(builder: (final BuildContext context) {
-                      return IconButton(
-                          onPressed: () async {
-                            await InfoDialog.showInfoDialog(context);
-                          },
-                          icon: const Icon(Icons.info));
-                    }),
-                  ]),
+                title: const SelectableText("Bluetooth web example app"),
+                actions: [
+                  Builder(builder: (final BuildContext context) {
+                    return IconButton(
+                        onPressed: () async {
+                          await InfoDialog.showInfoDialog(context);
+                        },
+                        icon: const Icon(Icons.info));
+                  }),
+                  Builder(builder: (final BuildContext context) {
+                    return IconButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (final BuildContext context) =>
+                                    const ModelViewer()));
+                      },
+                      icon: const Icon(Icons.navigation),
+                    );
+                  })
+                ],
+              ),
               body: MainPage(
                 isBluetoothAvailable: available,
               ),
